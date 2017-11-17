@@ -1,0 +1,70 @@
+<ion-view view-title="天气" hide-nav-bar="true" class="weather">
+
+  <ion-header-bar class="bar-calm" align-title="center">
+    <div class="title">{{city}}近三日天气情况</div>
+  </ion-header-bar>
+  <ion-content>
+
+    <ion-refresher on-refresh="refresh()" pulling-text="正在刷新..." pulling-icon="ion-ios-loop">
+    </ion-refresher>
+
+    <ion-list class="light-bg">
+      <ion-item class="ionItem" ng-repeat="daily in daily_forecast" style="padding-left: 10px !important">
+        <div class="row">
+          <div class="col-90">{{daily.date}}</div>
+        </div>
+        <div class="row pt-5">
+          <div class="col-25 left pt-5">日出时间:</div>
+          <div class="col-25 left pt-5">{{daily.astro.sr}}</div>
+          <div class="col-25 left pt-5">日落时间:</div>
+          <div class="col-25 left pt-5">{{daily.astro.ss}}</div>
+        </div>
+        <div class="row pt-5">
+          <div class="col-25 left pt-5">白天天气:</div>
+          <div class="col-25 left pt-5">{{daily.cond.txt_d}}</div>
+          <div class="col-25 left pt-5">夜间天气:</div>
+          <div class="col-25 left pt-5">{{daily.cond.txt_n}}</div>
+        </div>
+        <div class="row pt-5">
+          <div class="col-25 left pt-5">温度(ºC):</div>
+          <div class="col-25 left pt-5">{{daily.tmp.min}}~{{daily.tmp.max}}</div>
+          <div class="col-25 left pt-5">风力(等级):</div>
+          <div class="col-25 left pt-5">{{daily.wind.sc}}</div>
+        </div>
+        <div class="row pt-5">
+          <div class="col-25 left pt-5">相对湿度:</div>
+          <div class="col-25 left pt-5">{{daily.hum}}%</div>
+          <div class="col-25 left pt-5">降水量:</div>
+          <div class="col-25 left pt-5">{{daily.pcpn}}mm</div>
+        </div>
+      </ion-item>
+
+     <!-- <ion-item>
+        <div class="row">
+          <div class="col-90 left">今天空气质量</div>
+        </div>
+
+        <div class="row">
+          <div class="col center">{{aqi[0].qlty}}</div>
+        </div>
+
+      </ion-item>
+
+      <ion-item>
+        <div class="row">
+          <div class="col-50 col-offset-25" style="text-align: center">今日生活指数</div>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <div class="row"  >
+          <div class="col-25"><img src="img/cloths.png" style="width:45px;height: 45px"><br/>{{drsg[0].brf}}</div>
+          <div class="col-75 item-text-wrap" >{{drsg[0].txt}}</div>
+        </div>
+      </ion-item>-->
+
+    </ion-list>
+  </ion-content>
+
+</ion-view>
+

@@ -1,0 +1,177 @@
+<!--
+Create tabs with an icon and label, using the tabs-positive style.
+Each tab's child <ion-nav-view> directive will have its own
+navigation history that also transitions its views in and out.
+-->
+<style>
+  .ion-today-on{
+    background: url(img/weather_todayOn.png) no-repeat center top;
+    background-size: 30%;
+    margin-top: 2px!important;
+  }
+  .ion-today-off{
+    background: url(img/weather_todayOff.png) no-repeat center top;
+    background-size: 30%;
+    margin-top: 2px!important;
+  }
+  .ion-tomorrow-on{
+    background: url(img/weatherRecentlyOff.png) no-repeat center top;
+    background-size: 30%;
+    margin-top: 2px!important;
+  }
+  .ion-tomorrow-off{
+    background: url(img/weatherRecentlyOn.png) no-repeat center top;
+    background-size: 30%;
+    margin-top: 2px!important;
+  }
+  .tab-item .icon{
+    height: 40px;
+  }
+  /*.color1{*/
+    /*background-color: #11c1f3 !important;*/
+  /*}*/
+  /*.color2{*/
+    /*background-color: #0a9dc7 !important;*/
+  /*}*/
+  /*.color3{*/
+    /*background-color: #0c60ee !important;*/
+  /*}*/
+  /*.color4{*/
+    /*background-color: #387ef5 !important;*/
+  /*}*/
+  /*.color5{*/
+    /*background-color: #6b46e5 !important;*/
+  /*}*/
+  /*.color6{*/
+    /*background-color: #886aea !important;*/
+  /*}*/
+  /*.color7{*/
+    /*background-color: #e42112 !important;*/
+  /*}*/
+  /*.color8{*/
+    /*background-color: #ef473a !important;*/
+  /*}*/
+  /*.color9{*/
+    /*background-color: #33cd5f !important;*/
+  /*}*/
+  /*.color10{*/
+    /*background-color: #28a54c !important;*/
+  /*}*/
+
+</style>
+
+<ion-side-menus>
+  <ion-side-menu-content title="天气" drag-content=false>
+
+    <ion-tabs class="tabs-color-active-positive">
+
+      <ion-tab icon-off="ion-today-on" icon-on="ion-today-off" href="#/tab/main">
+        <ion-nav-view name="tab-main"></ion-nav-view>
+      </ion-tab>
+
+      <ion-tab icon-off="ion-tomorrow-on" icon-on="ion-tomorrow-off" href="#/tab/15weather">
+        <ion-nav-view name="tab-15weather"></ion-nav-view>
+      </ion-tab>
+
+
+    </ion-tabs>
+
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left" width="280">
+
+    <ion-nav-bar class="bar-positive">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+    </ion-nav-bar>
+
+    <ion-header-bar class="bg headerBarStyle" align-title="center" style="background-color:#3C3C3C;height: 60px">
+      <h1 class="title" style="padding-top: 10px;color: #BDBDBD;font-size: 23px">木子天气</h1>
+    </ion-header-bar>
+
+    <ion-content class="ion-content-color bg contentStyle" style="background-color: #222222;margin-top: 14px;">
+
+      <ion-list>
+
+        <ion-item class="dark-bg bg" style="height: 40px;display: flex;align-items: center;">
+          <div class="row">
+            <div class="col" style="color: #D1D1D1;font-size: 18px">我关注的城市</div>
+          </div>
+        </ion-item>
+
+        <ion-item class="dark-bg bg" style="height: 40px;display: flex;align-items: center;">
+          <div class="row">
+              <div class="icon ion-ios-location-outline light" style="margin-left: 10px"></div>
+              <div class="light" style="margin-left: 10px">{{city}}</div>
+              <div style="color: #D1D1D1;margin-left: 5px">(默认)</div>
+          </div>
+        </ion-item>
+
+        <ion-item class="dark-bg bg" style="height: 40px;display: flex;align-items: center;">
+          <div class="row" style="white-space: normal;">
+            <div style="color:#fff;padding-left: 10px">添加城市:</div>
+            <div ng-repeat="CityName in view.addCityArr track by $index" class="light" style="text-align: right;padding: 0 0 0 5px">
+              {{CityName}}
+              <i class="ion-ios-minus-outline" ng-if="editFlag && CityName" ng-click="deleteCity(CityName)"></i>
+              <!--<span class="badge badge-assertive">-</span>-->
+            </div>
+          </div>
+        </ion-item>
+
+        <ion-item class="dark-bg bg" style="height: 45px;display: flex;align-items: center;">
+          <div class="row">
+            <div class="col-33 col-offset-10">
+              <button class="dark-bg light bg" ng-click="editCity()">编辑城市</button>
+            </div>
+            <div class="col-33 col-offset-10">
+              <button class="dark-bg stable bg"  menu-close="true" ng-click="chooseCityname()">+添加城市</button>
+            </div>
+          </div>
+        </ion-item>
+
+        <ion-item class="dark-bg bg" style="height: 40px;display: flex;align-items: center;">
+          <div class="row">
+            <div class="col" style="color: #BDBDBD">个性设置</div>
+          </div>
+        </ion-item>
+
+        <!--<ion-item class="dark-bg bg" style="height: 40px;display: flex;align-items: center;">
+          <div class="row">
+            <div class="col light">添加桌面天气小工具</div>
+            <div class="col icon ion-ios-arrow-right light" style="text-align: right"></div>
+          </div>
+        </ion-item>-->
+        <ion-item class="dark-bg bg" style="height: 40px;display: flex;align-items: center;" ng-click="openModal();">
+          <div class="row">
+            <div class="col light">个性颜色</div>
+            <div class="col icon ion-ios-arrow-right light" style="text-align: right"></div>
+          </div>
+        </ion-item>
+        <ion-item class="dark-bg bg" style="height: 40px;display: flex;align-items: center;" ng-click="useHelp()">
+          <div class="row">
+            <div class="col light">使用帮助</div>
+            <div class="col icon ion-ios-arrow-right light" style="text-align: right"></div>
+          </div>
+        </ion-item>
+
+        <ion-item class="dark-bg bg" style="height: 45px;display: flex;align-items: center;">
+          <div class="row" style="justify-content: space-around">
+            <div class="col-20">
+              <button class="dark-bg light bg">留言板</button>
+            </div>
+            <div class="col-33">
+              <button class="dark-bg stable bg">关于天气王</button>
+            </div>
+            <div class="col-25">
+              <button class="dark-bg stable bg">退出应用</button>
+            </div>
+          </div>
+        </ion-item>
+
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+
+
+</ion-side-menus>
+

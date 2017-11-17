@@ -1,0 +1,19 @@
+<ion-view view-title="今日天气" hide-nav-bar="true">
+
+  <ion-header-bar class="bar-calm" align-title="center">
+    <button class="button button-icon icon ion-ios-arrow-back position" ng-click="goBack();"></button>
+    <div class="title font-size">查询各市</div>
+  </ion-header-bar>
+  <ion-content>
+
+    <ion-list>
+      <ion-item  collection-repeat="list in leaderCity1 track by $index" ng-click="selectCity(list)" style="padding-left: 10px !important;">
+        <div class="col">{{list}}</div>
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
+
+
+</ion-view>
+

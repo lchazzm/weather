@@ -1,0 +1,98 @@
+<ion-view view-title="今日天气" hide-nav-bar="true" menu-close="true">
+
+  <ion-header-bar class="bar-calm" align-title="center">
+    <a menu-toggle="left" class=" button button-clear icon ion-navicon" ng-click="$event.stopPropagation()"></a>
+    <div class="title font-size">{{city}}今日天气</div>
+    <div class="buttons">
+      <a class="button button-clear icon ion-ios-search" ng-click="goCity();$event.stopPropagation()"></a>
+      <a class="button button-clear icon ion-ios-plus-empty" ng-click="openPopover($event);"></a>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <ion-refresher on-refresh="refresh()" pulling-text="正在刷新..." pulling-icon="ion-ios-loop">
+    </ion-refresher>
+
+    <ion-list class="light-bg">
+      <ion-item class="ionItem">
+        <div class="row b-b rs">
+          <div class="col-90 col-center">每三小时预报</div>
+        </div>
+        <div class="row pl-10 pr-10" ng-repeat="hourly in hourly_forecast">
+          <div class="col-25 left pt-5">{{hourly.date | limitTo:-5}}</div>
+          <div class="col-25 right pt-5">{{hourly.cond.txt}}</div>
+          <div class="col-25 right pt-5">{{hourly.tmp}}ºC</div>
+          <div class="col-25 right pt-5">{{aqi[0].qlty}}</div>
+        </div>
+      </ion-item>
+
+      <ion-item class="mt-10" ng-if="aqi!=''">
+        <div class="row rs pl-10 b-b">
+          <div class="col-50 left col-center">今天空气质量</div>
+          <!--<div class="col-50 right col-center pr-20">未来15天空气质量</div>-->
+          <!--<div class="col-5 icon ion-ios-arrow-right col-center ta-r ml&#45;&#45;13 color1"></div>-->
+        </div>
+
+        <div class="row" style="padding-top: 5px">
+          <div class="col ta-c color">{{aqi[0].qlty}}</div>
+        </div>
+      </ion-item>
+
+      <ion-item>
+
+        <div class="row rs b-b">
+          <div class="col col-center ta-c">今日生活指数</div>
+        </div>
+
+        <div ng-if="drsg" class="row b-b mt-5" ng-click="goDetail(city,'穿衣指数','img/cloth.png');$event.stopPropagation()">
+          <div class="col-20 col-center ta-c">
+            <div>
+              <img src="img/cloth.png" style="width:55%">
+              <div>{{drsg[0].brf}}</div>
+            </div>
+
+          </div>
+          <div class="col-75 col-center item-text-wrap pl-5">{{drsg[0].txt}}</div>
+        </div>
+
+        <div class="row row-wrap p-0 mt-0" >
+          <div class="col-25 col-center ta-c b-r col-content" ng-repeat="a in livelive" ng-click="goDetail(city,a.name,a.img);$event.stopPropagation()">
+            <div class="line-height pt-4 pb-5">
+              <img ng-src="{{a.img}}" style="width:42%;">
+              <div>{{a.name}}</div>
+            </div>
+          </div>
+        </div>
+
+      </ion-item>
+
+    </ion-list>
+  </ion-content>
+
+  <!--内联模板-->
+  <script id="a.html" type="text/ng-template">
+    <ion-popover-view class="light-bg light padding" style="margin-top:10px;width:100px;height: 110px">
+
+      <div class="floatBroad">
+        <div class="icon ion-ios-plus-empty" ng-click="chooseCityname()">&nbsp;添加城市</div>
+      </div>
+      <hr class="hr">
+      <div class="floatBroad">
+        <div class="icon ion-ios-volume-high" ng-click="bdvoice()">&nbsp;语音播报</div>
+      </div>
+      <hr class="hr">
+      <div class="floatBroad">
+        <div class="icon ion-share" ng-click="shareAnywhere()">&nbsp;分享天气</div>
+      </div>
+
+    </ion-popover-view>
+  </script>
+
+  <style>
+    .floatBroad{color:#000;text-align: center}
+    .hr{margin-left:-10px;margin-right: -10px}
+    .left{text-align: left}
+    .right{text-align: right}
+  </style>
+
+</ion-view>
+

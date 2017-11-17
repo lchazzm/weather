@@ -1,0 +1,24 @@
+<ion-view view-title="今日天气" hide-nav-bar="true">
+
+  <ion-header-bar class="bar-calm" align-title="center">
+    <button class="button button-icon icon ion-ios-arrow-back position" ng-click="goBack();"></button>
+    <div class="title font-size">查询各省</div>
+  </ion-header-bar>
+  <ion-content>
+    <div class="row justify-content" ng-if="!chooseCityName">
+      <i class="icon ion-ios-search bs" style="color: #b2b2b2;font-size: 23px"></i>
+      <input class="placeholder pl-35 pr-15" placeholder="查询县级城市天气（中文、拼音）" ng-change="selectCity(city)" ng-model="city" style="width: 95%;border-radius: 10px;height: 35px;font-size: 16px;border-color: gray;border-width: 1px;">
+      <!--<button class="button button-clear button-positive" ng-click="selectCity(city)">查询</button>-->
+    </div>
+
+    <ion-list>
+      <ion-item  collection-repeat="list in cityArr track by $index" ng-click="secondCity(list)" style="padding-left: 10px !important;">
+        <div class="col">{{list}}</div>
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
+
+
+</ion-view>
+

@@ -1,0 +1,14 @@
+<ion-modal-view>
+  <ion-header-bar class="bar bar-header bar-positive">
+    <h1 class="title">侧边栏颜色的选择</h1>
+    <button class="button button-clear button-primary" ng-click="modal.hide()">结束</button>
+  </ion-header-bar>
+  <ion-content class="padding">
+    <div class="list">
+      <label class="item item-input itemColor" style="padding: 0;height: 35px"  ng-repeat="len in colorLength" ng-click="changeColor(len);modal.hide()" >
+        <span class="input-label"></span>
+      </label>
+      <button class="button button-full button-positive" ng-click="firstColor();">还原</button>
+    </div>
+  </ion-content>
+</ion-modal-view>

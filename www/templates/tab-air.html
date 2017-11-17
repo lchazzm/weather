@@ -1,0 +1,63 @@
+<ion-view view-title="生活指数" hide-nav-bar="true" class="air tabs-item-hide">
+
+  <ion-header-bar class="bar-positive" style="z-index:-1;height: 53%;border-color: #38c1f5;background-color: #38c1f5;background-image: linear-gradient(0deg, #38c1f5, #38c1f5 50%, transparent 50%);
+    color: #fff;" align-title="center">
+    <button class="button button-icon icon ion-ios-arrow-back position" style="position: absolute;top: 5px" ng-click="$ionicGoBack();"></button>
+    <div class="title">{{city}}今天{{name}}</div>
+    <img ng-src="{{image}}" style="width: 15%;height: 15%;position: absolute;top: 25%;left: 43%">
+  </ion-header-bar>
+  <ion-header-bar ng-repeat="daily_forecast in daily_forecast" ng-if="name=='穿衣指数'" class="bar bar-subheader bar-calm" style="position: absolute;top: 53%;height: 12%;border-color: #3BDDF5;background-color: #3BDDF5;background-image: linear-gradient(0deg, #3BDDF5, #3BDDF5 50%, transparent 50%);
+    color: #fff;">
+    <div class="col-50" style="border-right: 1px solid #fff">
+      <div class="row">
+        <div class="col-33">今天</div>
+        <div class="col-67" style="text-align: center" ng-if="daily_forecast.cond.txt_d!==daily_forecast.cond.txt_n">{{daily_forecast.cond.txt_d}}转{{daily_forecast.cond.txt_n}}</div>
+        <div class="col-50" style="text-align: center" ng-if="daily_forecast.cond.txt_d===daily_forecast.cond.txt_n">{{daily_forecast.cond.txt_d}}</div>
+      </div>
+      <div class="row" style="padding-top: 7px">
+        <div class="col-33">温度</div>
+        <div class="col-67" style="text-align: center">{{daily_forecast.tmp.min}} ～ {{daily_forecast.tmp.max}}</div>
+      </div>
+    </div>
+    <div class="col-50" style="padding-left: 7px">
+      <div class="row">
+        <div class="col-67">降水概率</div>
+        <div class="col-33" style="text-align: center">{{daily_forecast.pop}}%</div>
+      </div>
+      <div class="row" style="padding-top: 7px">
+        <div class="col-67">相对湿度</div>
+        <div class="col-33" style="text-align: center">{{daily_forecast.hum}}%</div>
+      </div>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <div ng-if="name!='AQI' && name!='风力'" style="padding-top: 35%;padding-bottom: 8%;text-align: center;font-size: 30px;z-index: 20;color:#fff;border-bottom: 1px solid #fff">{{air[0].brf}}</div>
+    <div ng-if="name=='AQI'" style="padding-top: 35%;padding-bottom: 8%;text-align: center;font-size: 30px;z-index: 20;color:#fff;border-bottom: 1px solid #fff">{{aqi[0].qlty}}</div>
+    <div ng-if="name=='风力'" style="padding-top: 35%;padding-bottom: 8%;text-align: center;font-size: 30px;z-index: 20;color:#fff;border-bottom: 1px solid #fff">{{air[0].dir}}</div>
+    <!--<div ng-if="name=='穿衣指数'" style="padding-top: 35%;padding-bottom: 8%;text-align: center;font-size: 30px;z-index: 20;color:#fff;border-bottom: 1px solid #fff">{{air[0].brf}}</div>-->
+
+    <div ng-if="name!='AQI' && name!='风力'" style="height: 19%;display: flex;align-items: center;padding: 0 15px 0 15px;line-height: 25px;text-align: left;font-size: 18px;z-index: 20;color:#fff">{{air[0].txt}}</div>
+    <div ng-if="name=='风力'" style="padding: 2% 0 0 15px;line-height: 25px;text-align: left;font-size: 18px;z-index: 20;color:#fff">风向: {{air[0].deg}}度</div>
+    <div ng-if="name=='风力'" style="line-height: 25px;text-align: center;font-size: 18px;z-index: 20;color:#fff">风向等级: {{air[0].sc}}级</div>
+    <div ng-if="name=='风力'" style="padding: 0 15px 0 0;line-height: 25px;text-align: right;font-size: 18px;z-index: 20;color:#fff">风速: {{air[0].spd}}m/s</div>
+
+    <div ng-if="name=='AQI'" class="row" style="margin-top: 0;padding: 5px 5px 0 5px">
+      <div class="col-50" style="padding: 0 15px 0 15px;line-height: 25px;text-align: center;font-size: 18px;z-index: 20;color:#fff" ng-if="aqi[0].co">CO含量: {{aqi[0].co}}</div>
+      <div class="col-50" style="padding: 0 15px 0 15px;line-height: 25px;text-align: center;font-size: 18px;z-index: 20;color:#fff" ng-if="!aqi[0].co">CO含量: 无</div>
+      <div class="col-50" style="padding: 0 15px 0 15px;line-height: 25px;text-align: center;font-size: 18px;z-index: 20;color:#fff" ng-if="aqi[0].no2">NO2含量: {{aqi[0].no2}}</div>
+      <div class="col-50" style="padding: 0 15px 0 15px;line-height: 25px;text-align: center;font-size: 18px;z-index: 20;color:#fff" ng-if="!aqi[0].no2">NO2含量: 无</div>
+    </div>
+    <div ng-if="name=='AQI'" class="row" style="margin-top: 0;padding: 0 5px 0 5px">
+      <div class="col-50" style="padding: 0 15px 0 15px;line-height: 25px;text-align: center;font-size: 18px;z-index: 20;color:#fff">PM10: {{aqi[0].pm10}}</div>
+      <div class="col-50" style="padding: 0 15px 0 15px;line-height: 25px;text-align: center;font-size: 18px;z-index: 20;color:#fff">PM25: {{aqi[0].pm25}}</div>
+    </div>
+    <div ng-if="name=='AQI'" class="row" style="margin-top: 0;padding: 0 5px 0 5px">
+      <div class="col-50" style="padding: 0 15px 0 15px;line-height: 25px;text-align: center;font-size: 18px;z-index: 20;color:#fff" ng-if="aqi[0].o3">O3含量: {{aqi[0].o3}}</div>
+      <div class="col-50" style="padding: 0 15px 0 15px;line-height: 25px;text-align: center;font-size: 18px;z-index: 20;color:#fff" ng-if="!aqi[0].o3">O3含量: 无</div>
+      <div class="col-50" style="padding: 0 15px 0 15px;line-height: 25px;text-align: center;font-size: 18px;z-index: 20;color:#fff" ng-if="aqi[0].so2">SO2含量: {{aqi[0].so2}}</div>
+      <div class="col-50" style="padding: 0 15px 0 15px;line-height: 25px;text-align: center;font-size: 18px;z-index: 20;color:#fff" ng-if="!aqi[0].so2">SO2含量: 无</div>
+    </div>
+   </ion-content>
+
+</ion-view>
+
