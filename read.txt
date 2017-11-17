@@ -1,0 +1,6 @@
+Git is a distributed version control system.
+Git is free software.
+ÃÌº”“ª––
+Git has a mutable index called stage.
+stage is importent
+ you you you
